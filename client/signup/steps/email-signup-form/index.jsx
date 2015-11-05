@@ -102,10 +102,14 @@ export default React.createClass( {
 	},
 
 	render() {
+		this.props.signupDependencies.jetpackRedirect = this.props.jetpackRedirect;
+
 		return (
 			<StepWrapper
 				flowName={ this.props.flowName }
 				stepName={ this.props.stepName }
+				headerText={ this.props.headerText }
+				subHeaderText={ this.props.subHeaderText }
 				positionInFlow={ this.props.positionInFlow }
 				fallbackHeaderText={ this.translate( 'Create your account.' ) }
 				signupProgressStore={ this.props.signupProgressStore }
