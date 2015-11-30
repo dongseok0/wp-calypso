@@ -124,7 +124,6 @@ module.exports = React.createClass( {
 
 	content: function() {
 		var selectedSite = this.props.sites.getSelectedSite();
-		var redirectTo = this.getCheckoutCompleteRedirectPath();
 
 		if ( ! this.isLoading() && this.needsDomainDetails() ) {
 			return (
@@ -147,7 +146,7 @@ module.exports = React.createClass( {
 				cards={ this.props.cards }
 				products={ this.props.productsList.get() }
 				selectedSite={ selectedSite }
-				redirectTo={ redirectTo } />
+				redirectTo={ this.getCheckoutCompleteRedirectPath() } />
 		);
 	},
 
