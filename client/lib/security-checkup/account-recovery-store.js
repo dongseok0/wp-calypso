@@ -38,8 +38,8 @@ var AccountRecoveryStore = {
 		return _phone.isSendingCode;
 	},
 
-	isVerifyingPhone: function() {
-		return _phone.isVerifyingPhone;
+	isVerifyingCode: function() {
+		return _phone.isVerifyingCode;
 	},
 
 	isRemovingPhone: function() {
@@ -207,12 +207,12 @@ AccountRecoveryStore.dispatchToken = Dispatcher.register( function( payload ) {
 			break;
 
 		case actions.VERIFY_ACCOUNT_RECOVERY_PHONE:
-			_phone.isVerifyingPhone = true;
+			_phone.isVerifyingCode = true;
 			emitChange();
 			break;
 
 		case actions.RECEIVE_VERIFIED_ACCOUNT_RECOVERY_PHONE:
-			_phone.isVerifyingPhone = false;
+			_phone.isVerifyingCode = false;
 			if ( action.error ) {
 				_phone.lastNotice = { type: 'error', message: action.error.message };
 

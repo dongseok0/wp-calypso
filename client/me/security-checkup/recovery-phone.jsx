@@ -99,7 +99,7 @@ module.exports = React.createClass( {
 	},
 
 	getRecoveryPhone: function() {
-		if ( isEmpty( this.state.recoveryPhone.data ) ) {
+		if ( isEmpty( this.state.recoveryPhone.data.number ) ) {
 			return(
 				<p>No recovery phone</p>
 			);
@@ -116,7 +116,7 @@ module.exports = React.createClass( {
 				<FormSectionHeading>Recovery phone</FormSectionHeading>
 				{ this.getRecoveryPhone() }
 				<FormButton onClick={ this.editPhone } isPrimary={ false } >
-					{ isEmpty( this.state.recoveryPhone.data ) ? this.translate( 'Add Phone' ) : this.translate( 'Edit Phone' ) }
+					{ isEmpty( this.state.recoveryPhone.data.number ) ? this.translate( 'Add Phone' ) : this.translate( 'Edit Phone' ) }
 				</FormButton>
 			</div>
 		);
