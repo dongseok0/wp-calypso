@@ -65,10 +65,6 @@ function isFree( cart ) {
 	return cart.total_cost === 0 && ! cartItems.hasFreeTrial( cart );
 }
 
-function isFreeTrial( cart ) {
-	return cart.products.length === 1 && cartItems.hasFreeTrial( cart );
-}
-
 function fillInAllCartItemAttributes( cart, products ) {
 	return React.addons.update( cart, {
 		products: {
@@ -117,7 +113,6 @@ module.exports = {
 	cartItems: cartItems,
 	isPaidForFullyInCredits: isPaidForFullyInCredits,
 	isFree: isFree,
-	isFreeTrial: isFreeTrial,
 	fillInAllCartItemAttributes: fillInAllCartItemAttributes,
 	fillInSingleCartItemAttributes: fillInSingleCartItemAttributes,
 	getRefundPolicy: getRefundPolicy

@@ -8,7 +8,7 @@ var React = require( 'react' );
 var cartValues = require( 'lib/cart-values' ),
 	getRefundPolicy = cartValues.getRefundPolicy,
 	cartItems = cartValues.cartItems,
-	isFreeTrial = cartValues.isFreeTrial;
+	hasFreeTrial = cartItems.hasFreeTrial;
 
 var SupportingText = React.createClass( {
 
@@ -70,8 +70,8 @@ var SupportingText = React.createClass( {
 	},
 
 	render: function() {
-		return isFreeTrial( this.props.cart ) ?
-			null : (
+		return hasFreeTrial( this.props.cart )
+		? null : (
 				<ul className="supporting-text">
 					{ this.creditCardSupportingText() }
 					{ this.liveChatSupportingText() }

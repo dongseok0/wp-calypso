@@ -17,7 +17,7 @@ var CreditCardPaymentBox = require( './credit-card-payment-box' ),
 	cartValues = require( 'lib/cart-values' ),
 	isPaidForFullyInCredits = cartValues.isPaidForFullyInCredits,
 	isFree = cartValues.isFree,
-	isFreeTrial = cartValues.isFreeTrial,
+	hasFreeTrial = cartValues.cartItems.hasFreeTrial,
 	countriesList = require( 'lib/countries-list' ).forPayments(),
 	analytics = require( 'analytics' ),
 	TransactionStepsMixin = require( './transaction-steps-mixin' ),
@@ -45,7 +45,7 @@ var SecurePaymentForm = React.createClass( {
 			return 'credits';
 		} else if ( isFree( cart ) ) {
 			return 'free-cart';
-		} else if ( isFreeTrial( cart ) ) {
+		} else if ( hasFreeTrial( cart ) ) {
 			return 'free-trial';
 		} else if ( this.state && this.state.userSelectedPaymentBox ) {
 			return this.state.userSelectedPaymentBox;
