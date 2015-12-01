@@ -110,12 +110,12 @@ module.exports = React.createClass( {
 		var renewalItem, path;
 		if ( cartItems.hasRenewalItem( this.props.cart ) ) {
 			renewalItem = cartItems.getRenewalItems( this.props.cart )[ 0 ];
-			path = purchasePaths.managePurchaseDestination( renewalItem.extra.purchaseDomain, renewalItem.extra.purchaseId, 'thank-you' );
-		} else {
-			path = '/checkout/thank-you';
+			return path = purchasePaths.managePurchaseDestination( renewalItem.extra.purchaseDomain, renewalItem.extra.purchaseId, 'thank-you' );
 		}
 
-		if ( this.props.cart.products.length === 1 && this.props.cart.products[0].free_trial ) {
+		path = '/checkout/thank-you';
+
+		if ( cartItems.hasFreeTrial( this.props.cart ) ) {
 			path += '?free-trial=1';
 		}
 
