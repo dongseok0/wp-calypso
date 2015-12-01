@@ -86,11 +86,11 @@ module.exports = React.createClass( {
 	renderRecoveryEmailNotice: function() {
 		var emailsNotice = AccountRecoveryStore.getEmailsNotice();
 
-		if ( isEmpty( AccountRecoveryStore.getEmailsNotice() ) ) {
+		if ( isEmpty( emailsNotice ) ) {
 			return null;
 		}
 
-		switch ( emailsNotice.status ) {
+		switch ( emailsNotice.type ) {
 			case 'success':
 				return (
 					<SimpleNotice

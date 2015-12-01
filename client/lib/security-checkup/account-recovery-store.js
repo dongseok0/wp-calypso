@@ -11,6 +11,7 @@ var React = require( 'react' ),
  */
 var Dispatcher = require( 'dispatcher' ),
 	emitter = require( 'lib/mixins/emitter' ),
+	i18n = require( 'lib/mixins/i18n' ),
 	actions = require( './constants' ).actions,
 	me = require( 'lib/wp' ).undocumented().me();
 
@@ -166,7 +167,7 @@ AccountRecoveryStore.dispatchToken = Dispatcher.register( function( payload ) {
 				emitChange();
 				break;
 			}
-			_emails.lastNotice = { type: 'success', message: this.translate( 'We have sent a verification email to {{email/}}. please verify', { components: { email: <strong>{ action.email }</strong> } } ) };
+			_emails.lastNotice = { type: 'success', message: i18n.translate( 'We have sent you verification email. please verify.' ) };
 			emitChange();
 			break;
 
