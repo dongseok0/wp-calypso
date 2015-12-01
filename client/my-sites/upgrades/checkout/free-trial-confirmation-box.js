@@ -17,7 +17,11 @@ var FreeTrialConfirmationBox = React.createClass( {
 		return (
 			<form onSubmit={ this.props.onSubmit }>
 				<div className="payment-box-section">
-					<h6>{ this.translate( 'Your new site awaits' ) }</h6>
+					<h6>
+					{
+						this.translate( 'Get started with %(productName)s', { args: { productName: this.props.cart.products[0].product_name } } )
+					}
+					</h6>
 
 					<span>
 					{
