@@ -171,12 +171,12 @@ AccountRecoveryStore.dispatchToken = Dispatcher.register( function( payload ) {
 
 	switch ( action.type ) {
 		case actions.ADD_ACCOUNT_RECOVERY_EMAIL:
-			_phone.step = 'addRecoveryEmail';
+			_emails.step = 'addRecoveryEmail';
 			emitChange();
 			break;
 
 		case actions.CANCEL_ACCOUNT_RECOVERY_EMAIL:
-			_phone.step = 'recoveryEmail';
+			_emails.step = 'recoveryEmail';
 			emitChange();
 			break;
 
