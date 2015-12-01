@@ -1,10 +1,10 @@
 /**
  * External dependencies
  */
-var debug = require( 'debug' )( 'calypso:lib:security-checkup:account-recovery-store' ),
+var React = require( 'react' ),
+	debug = require( 'debug' )( 'calypso:lib:security-checkup:account-recovery-store' ),
 	assign = require( 'lodash/object/assign' ),
-	remove = require( 'lodash/array/remove' ),
-	isEmpty = require( 'lodash/lang/isEmpty' );
+	remove = require( 'lodash/array/remove' );
 
 /**
  * Internal dependencies
@@ -12,7 +12,6 @@ var debug = require( 'debug' )( 'calypso:lib:security-checkup:account-recovery-s
 var Dispatcher = require( 'dispatcher' ),
 	emitter = require( 'lib/mixins/emitter' ),
 	actions = require( './constants' ).actions,
-	messages = require( './constants' ).messages,
 	me = require( 'lib/wp' ).undocumented().me();
 
 var _initialized = false,
@@ -167,7 +166,7 @@ AccountRecoveryStore.dispatchToken = Dispatcher.register( function( payload ) {
 				emitChange();
 				break;
 			}
-
+			_emails.lastNotice = { type: 'success', message: this.translate( 'We have sent a verification email to {{email/}}. please verify', { components: { email: <strong>{ action.email }</strong> } } ) };
 			emitChange();
 			break;
 

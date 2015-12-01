@@ -101,7 +101,7 @@ var SecurityCheckupActions = {
 		} );
 	},
 
-	dismissEmailNotice: function() {
+	dismissEmailsNotice: function() {
 		Dispatcher.handleViewAction( {
 			type: actions.DISMISS_ACCOUNT_RECOVERY_EMAILS_NOTICE
 		} );

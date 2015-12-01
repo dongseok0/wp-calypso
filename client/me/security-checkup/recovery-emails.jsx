@@ -18,7 +18,7 @@ import FormInputValidation from 'components/forms/form-input-validation';
 import FormButtonsBar from 'components/forms/form-buttons-bar';
 import FormButton from 'components/forms/form-button';
 import ActionRemove from 'me/action-remove';
-import Notice from 'notices/notice';
+import SimpleNotice from 'notices/simple-notice';
 
 module.exports = React.createClass( {
 	displayName: 'SecurityCheckupRecoveryEmails',
@@ -79,8 +79,13 @@ module.exports = React.createClass( {
 		this.setState( { isAddingRecoveryEmail: false, recoveryEmailValidationError: '' } );
 	},
 
+	dismissEmailsNotice: function() {
+		SecurityCheckupActions.dismissEmailsNotice();
+	},
+
 	renderRecoveryEmailNotice: function() {
 		var emailsNotice = AccountRecoveryStore.getEmailsNotice();
+
 		if ( isEmpty( AccountRecoveryStore.getEmailsNotice() ) ) {
 			return null;
 		}
@@ -88,11 +93,25 @@ module.exports = React.createClass( {
 		switch ( emailsNotice.status ) {
 			case 'success':
 				return (
-					<Notice status="is-success" text={ emailsNotice.message } />
+					<SimpleNotice
+						status="is-success"
+						isCompact={ true }
+						onClick={ this.dismissEmailsNotice }
+						showDismiss={ true }
+						>
+						{ emailsNotice.message }
+					</SimpleNotice>
 				);
 			case 'error':
 				return (
-					<Notice status="is-error" text={ emailsNotice.message } />
+					<SimpleNotice
+						status="is-error"
+						isCompact={ true }
+						onClick={ this.dismissEmailsNotice }
+						showDismiss={ true }
+						>
+						{ emailsNotice.message }
+					</SimpleNotice>
 				);
 			default:
 				return null;
@@ -171,7 +190,7 @@ module.exports = React.createClass( {
 					</FormFieldSet>
 					<FormButtonsBar>
 						<FormButton onClick={ this.saveEmail } >
-							{ AccountRecoveryStore.isAddRecoveryEmail() ? this.translate( 'Saving...' ) : this.translate( 'Save' ) }
+							{ AccountRecoveryStore.isAddRecoveryEmail() ? this.translate( 'Saving' ) : this.translate( 'Save' ) }
 						</FormButton>
 						<FormButton onClick={ this.cancelEmail } isPrimary={ false } >
 							{ this.translate( 'Cancel' ) }

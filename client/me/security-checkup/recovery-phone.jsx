@@ -16,9 +16,6 @@ import FormPhoneInput from 'components/forms/form-phone-input';
 import FormTextInput from 'components/forms/form-text-input';
 import FormInputValidation from 'components/forms/form-input-validation';
 import countriesList from 'lib/countries-list';
-import wpcomLib from 'lib/wp';
-
-const wpcom = wpcomLib.undocumented();
 
 module.exports = React.createClass( {
 	displayName: 'SecurityCheckupRecoveryPhone',
@@ -147,9 +144,9 @@ module.exports = React.createClass( {
 					/>
 				<FormButtonsBar>
 					<FormButton onClick={ this.sendCode } >
-						{ this.state.isSendingCode ? this.translate( 'Sending code...' ) : this.translate( 'Send code' ) }
+						{ this.state.isSendingCode ? this.translate( 'Sending code' ) : this.translate( 'Send code' ) }
 					</FormButton>
-					<FormButton onClick={ this.cancel }  isPrimary={ false } >
+					<FormButton onClick={ this.cancel } isPrimary={ false } >
 						{ this.translate( 'Cancel' ) }
 					</FormButton>
 				</FormButtonsBar>
@@ -164,9 +161,9 @@ module.exports = React.createClass( {
 				<FormTextInput valueLink={ this.linkState( 'verificationCode' ) } ></FormTextInput>
 				<FormButtonsBar>
 					<FormButton onClick={ this.verifyCode } >
-						{ this.state.isVerifyingCode ? this.translate( 'Verifying code...' ) : this.translate( 'Verify code' ) }
+						{ this.state.isVerifyingCode ? this.translate( 'Verifying code' ) : this.translate( 'Verify code' ) }
 					</FormButton>
-					<FormButton onClick={ this.cancel }  isPrimary={ false } >
+					<FormButton onClick={ this.cancel } isPrimary={ false } >
 						{ this.translate( 'Cancel' ) }
 					</FormButton>
 				</FormButtonsBar>
