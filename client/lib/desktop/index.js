@@ -149,6 +149,6 @@ var Desktop = {
 	}
 };
 
-spellchecker();
+spellchecker( window.navigator.language );
 
 module.exports = Desktop;
