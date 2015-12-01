@@ -107,19 +107,13 @@ module.exports = React.createClass( {
 	},
 
 	getCheckoutCompleteRedirectPath: function() {
-		var renewalItem, path;
+		var renewalItem;
 		if ( cartItems.hasRenewalItem( this.props.cart ) ) {
 			renewalItem = cartItems.getRenewalItems( this.props.cart )[ 0 ];
-			return path = purchasePaths.managePurchaseDestination( renewalItem.extra.purchaseDomain, renewalItem.extra.purchaseId, 'thank-you' );
+			return purchasePaths.managePurchaseDestination( renewalItem.extra.purchaseDomain, renewalItem.extra.purchaseId, 'thank-you' );
 		}
 
-		path = '/checkout/thank-you';
-
-		if ( cartItems.hasFreeTrial( this.props.cart ) ) {
-			path += '?free-trial=1';
-		}
-
-		return path;
+		return '/checkout/thank-you';
 	},
 
 	content: function() {
