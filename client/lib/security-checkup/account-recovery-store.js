@@ -17,7 +17,7 @@ var Dispatcher = require( 'dispatcher' ),
 var _initialized = false,
 	_loading = false,
 	_phone = {
-		isSavingPhone: false,
+		isSendingCode: false,
 		isRemovingPhone: false,
 		isVerifyingPhone: false,
 		lastNotice: false,
@@ -32,6 +32,10 @@ var _initialized = false,
 var AccountRecoveryStore = {
 	isAddRecoveryEmail: function() {
 		return _emails.isAddingEmail;
+	},
+
+	isSendingCode: function() {
+		return _phone.isSendingCode;
 	},
 
 	isVerifyingPhone: function() {
@@ -187,12 +191,12 @@ AccountRecoveryStore.dispatchToken = Dispatcher.register( function( payload ) {
 			emitChange();
 			break;
 		case actions.SAVE_ACCOUNT_RECOVERY_PHONE:
-			_phone.isSavingPhone = true;
+			_phone.isSendingCode = true;
 			emitChange();
 			break;
 
 		case actions.RECEIVE_SAVED_ACCOUNT_RECOVERY_PHONE:
-			_phone.isSavingPhone = false;
+			_phone.isSendingCode = false;
 			if ( action.error ) {
 				_phone.lastNotice = { type: 'error', message: action.error.message };
 				emitChange();

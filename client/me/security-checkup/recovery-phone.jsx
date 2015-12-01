@@ -33,7 +33,7 @@ module.exports = React.createClass( {
 
 	getInitialState: function() {
 		return {
-			recoveryPhone: AccountRecoveryStore.getPhone(), // @TODO this should be a prop
+			recoveryPhone: AccountRecoveryStore.getPhone(),
 			recoveryPhoneScreen: 'recoveryPhone',
 			recoveryPhoneValidationError: '',
 			verificationCode: '',
@@ -69,8 +69,6 @@ module.exports = React.createClass( {
 			countryCode = this.state.phoneNumber.phoneNumber;
 		}
 
-		this.setState( { isSendingCode: true } );
-
 		SecurityCheckupActions.addPhone( countryCode, phoneNumber );
 	},
 
@@ -79,8 +77,6 @@ module.exports = React.createClass( {
 			this.setState( { verificationCodeValidationError: this.translate( 'Please enter a valid code.' ) } );
 			return;
 		}
-
-		this.setState( { isVerifyingCode: true } );
 
 		SecurityCheckupActions.verifyPhone( this.state.verificationCode );
 	},
@@ -94,7 +90,7 @@ module.exports = React.createClass( {
 	},
 
 	recoveryPhonePlaceHolder: function() {
-		return(
+		return (
 			<div className="security-checkup__recovery-phone-placholder">
 				<FormSectionHeading>Recovery phone placeholder</FormSectionHeading>
 				<p className="security-checkup__recovery-phone">Recovery phone placeholder</p>
@@ -120,7 +116,7 @@ module.exports = React.createClass( {
 				<FormSectionHeading>Recovery phone</FormSectionHeading>
 				{ this.getRecoveryPhone() }
 				<FormButton onClick={ this.editPhone } isPrimary={ false } >
-					{ this.translate( 'Edit Phone' ) }
+					{ isEmpty( this.state.recoveryPhone.data ) ? this.translate( 'Add Phone' ) : this.translate( 'Edit Phone' ) }
 				</FormButton>
 			</div>
 		);
@@ -131,13 +127,26 @@ module.exports = React.createClass( {
 			return null;
 		}
 
-		return(
+		return (
 			<FormInputValidation isError={ true } text={ this.state.recoveryPhoneValidationError } />
 		);
 	},
 
-	editRecoveryPhone: function() {
+	displayDeletePhoneButton: function() {
+		if ( isEmpty( this.state.recoveryPhone.data ) ) {
+			return null;
+		}
+
 		return(
+			<button onClick={ this.deletePhone }>
+				<Gridicon icon="trash" size={ 24 } />
+				<span>{ AccountRecoveryStore.isRemovingPhone() ? this.translate( 'Removing' ) : this.translate( 'Remove' ) }</span>
+			</button>
+		);
+	},
+
+	editRecoveryPhone: function() {
+		return (
 			<div>
 				<FormPhoneInput
 					countriesList={ countriesList.forSms() }
@@ -146,10 +155,6 @@ module.exports = React.createClass( {
 					onChange={ this.onChangePhoneInput }
 					/>
 				<FormButtonsBar>
-					<button onClick={ this.deletePhone }>
-						<Gridicon icon="trash" size={ 24 } />
-						<span>{ AccountRecoveryStore.isRemovingPhone() ? this.translate( 'Removing' ) : this.translate( 'Remove' ) }</span>
-					</button>
 					<FormButton onClick={ this.sendCode } >
 						{ AccountRecoveryStore.isSendingCode() ? this.translate( 'Sending code' ) : this.translate( 'Send code' ) }
 					</FormButton>
@@ -163,12 +168,12 @@ module.exports = React.createClass( {
 	},
 
 	verfiyRecoveryPhone: function() {
-		return(
+		return (
 			<div>
 				<FormTextInput valueLink={ this.linkState( 'verificationCode' ) } ></FormTextInput>
 				<FormButtonsBar>
 					<FormButton onClick={ this.verifyCode } >
-						{ this.state.isVerifyingCode ? this.translate( 'Verifying code' ) : this.translate( 'Verify code' ) }
+						{ AccountRecoveryStore.isVerifyingCode() ? this.translate( 'Verifying code' ) : this.translate( 'Verify code' ) }
 					</FormButton>
 					<FormButton onClick={ this.cancel } isPrimary={ false } >
 						{ this.translate( 'Cancel' ) }
