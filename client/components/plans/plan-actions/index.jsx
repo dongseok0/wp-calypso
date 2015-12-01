@@ -166,7 +166,7 @@ module.exports = React.createClass( {
 					{ this.translate( 'Try it free for 14 days, no credit card needed, or', { context: 'Store action' } ) }&nbsp;
 					<a href='#'
 						onClick={ this.handleAddToCart.bind( null, this.cartItem( { isFreeTrial: false } ), 'link' ) }>
-						{ this.translate( 'Upgrade Now', { context: 'Store action' } ) }
+						{ this.translate( 'upgrade now', { context: 'Store action' } ) }
 					</a>.
 				</small>
 			</div>

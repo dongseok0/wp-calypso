@@ -21,7 +21,7 @@ var FreeTrialConfirmationBox = React.createClass( {
 
 					<span>
 					{
-						this.translate( 'Enjoy your free trial with no strings attached: your site will simply revert to the free plan when the period is over. We\'ll send you a reminder before the end of the trial, so look for our emails.' )
+						this.translate( 'Enjoy your free trial with no strings attached: your site will simply revert to the free plan when the period is over.' )
 					}
 					</span>
 				</div>
