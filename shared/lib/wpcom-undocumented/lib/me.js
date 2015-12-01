@@ -234,68 +234,27 @@ UndocumentedMe.prototype.updateNotificationSettings = function( settings, applyT
 };
 
 UndocumentedMe.prototype.getAccountRecovery = function( callback ) {
-	var args = {
-		apiVersion: '1.2'
-	};
-	return this.wpcom.req.get( '/me/account-recovery', args, callback );
+	return this.wpcom.req.get( '/me/account-recovery', { apiVersion: '1.2' }, callback );
 };
 
 UndocumentedMe.prototype.addAccountRecoveryEmail = function( email, callback ) {
-	var args = {
-		apiVersion: '1.2',
-		path: '/me/account-recovery/email',
-		body: {
-			email: email
-		}
-	};
-
-	return this.wpcom.req.post( args, callback );
+	return this.wpcom.req.post( '/me/account-recovery/email/new', { apiVersion: '1.2' }, { email: email }, callback );
 };
 
 UndocumentedMe.prototype.deleteAccountRecoveryEmail = function( email, callback ) {
-	var args = {
-		apiVersion: '1.2',
-		path: '/me/account-recovery/email/delete',
-		body: {
-			email: email
-		}
-	};
-
-	return this.wpcom.req.post( args, callback );
+	return this.wpcom.req.post( '/me/account-recovery/email/delete', { apiVersion: '1.2' }, { email: email }, callback );
 };
 
 UndocumentedMe.prototype.addAccountRecoveryPhone = function( country, phoneNumber, callback ) {
-	var args = {
-		apiVersion: '1.2',
-		path: '/me/account-recovery/phone/new',
-		body: {
-			country: country,
-			phone_number: phoneNumber
-		}
-	};
-
-	return this.wpcom.req.post( args, callback );
+	return this.wpcom.req.post( '/me/account-recovery/phone/new', { apiVersion: '1.2' }, { country: country, phone_number: phoneNumber }, callback );
 };
 
 UndocumentedMe.prototype.validateAccountRecoveryPhone = function( code, callback ) {
-	var args = {
-		apiVersion: '1.2',
-		path: '/me/account-recovery/phone/validate',
-		body: {
-			code: code
-		}
-	};
-
-	return this.wpcom.req.post( args, callback );
+	return this.wpcom.req.post( '/me/account-recovery/phone/validate', { apiVersion: '1.2' }, { code: code }, callback );
 };
 
 UndocumentedMe.prototype.deleteAccountRecoveryPhone = function( callback ) {
-	var args = {
-		apiVersion: '1.2',
-		path: '/me/account-recovery/phone/delete'
-	};
-
-	return this.wpcom.req.post( args, callback );
+	return this.wpcom.req.post( '/me/account-recovery/phone/validate', { apiVersion: '1.2' }, {}, callback );
 };
 
 module.exports = UndocumentedMe;

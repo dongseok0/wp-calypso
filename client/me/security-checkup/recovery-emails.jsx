@@ -67,7 +67,6 @@ module.exports = React.createClass( {
 			return;
 		}
 
-		this.setState( { displayVerifyNotice: true } );
 		SecurityCheckupActions.addEmail( this.state.recoveryEmail );
 	},
 
