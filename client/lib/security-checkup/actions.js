@@ -11,15 +11,27 @@ var Dispatcher = require( 'dispatcher' ),
 	me = require( 'lib/wp' ).undocumented().me();
 
 var SecurityCheckupActions = {
-	addEmail: function( email ) {
+	addEmail: function() {
 		Dispatcher.handleViewAction( {
-			type: actions.ADD_ACCOUNT_RECOVERY_EMAIL,
+			type: actions.ADD_ACCOUNT_RECOVERY_EMAIL
+		} );
+	},
+
+	cancelEmail: function() {
+		Dispatcher.handleViewAction( {
+			type: actions.CANCEL_ACCOUNT_RECOVERY_EMAIL
+		} );
+	},
+
+	saveEmail: function( email ) {
+		Dispatcher.handleViewAction( {
+			type: actions.SAVE_ACCOUNT_RECOVERY_EMAIL,
 			email: email
 		} );
 
 		me.addAccountRecoveryEmail( email, function( error, data ) {
 			Dispatcher.handleServerAction( {
-				type: actions.RECEIVE_ADDED_ACCOUNT_RECOVERY_EMAIL,
+				type: actions.RECEIVE_SAVED_ACCOUNT_RECOVERY_EMAIL,
 				email: email,
 				data: data,
 				error: error

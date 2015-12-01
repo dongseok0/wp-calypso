@@ -61,7 +61,7 @@ describe( 'SecurityCheckupActions', function() {
 		} );
 
 		it( 'should dispatch a ViewAction', function() {
-			SecurityCheckupActions.addEmail( testConstants.DUMMY_EMAIL );
+			SecurityCheckupActions.saveEmail( testConstants.DUMMY_EMAIL );
 
 			expect( Dispatcher.handleViewAction ).to.have.been.calledWithMatch( {
 				type: actions.UPDATE_ACCOUNT_RECOVERY_EMAIL,
@@ -70,13 +70,13 @@ describe( 'SecurityCheckupActions', function() {
 		} );
 
 		it( 'should call the WP.com REST API', function() {
-			SecurityCheckupActions.addEmail( testConstants.DUMMY_EMAIL );
+			SecurityCheckupActions.saveEmail( testConstants.DUMMY_EMAIL );
 
 			expect( undocumentedMe.prototype.addAccountRecoveryEmail ).to.have.been.calledWith( testConstants.DUMMY_EMAIL );
 		} );
 
 		it( 'should dispatch a ServerAction', function( done ) {
-			SecurityCheckupActions.addEmail( testConstants.DUMMY_EMAIL );
+			SecurityCheckupActions.saveEmail( testConstants.DUMMY_EMAIL );
 
 			process.nextTick( function() {
 				expect( Dispatcher.handleServerAction ).to.have.been.calledWithMatch( {

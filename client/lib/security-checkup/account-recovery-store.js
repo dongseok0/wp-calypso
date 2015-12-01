@@ -26,7 +26,7 @@ var _initialized = false,
 	},
 	_emails = {
 		step: 'recoveryEmail',
-		isAddingEmail: false,
+		isSavingEmail: false,
 		lastNotice: false,
 		data: {}
 	};
@@ -36,12 +36,12 @@ var AccountRecoveryStore = {
 		return _phone.step;
 	},
 
-	getEmailStep: function() {
+	getEmailsStep: function() {
 		return _emails.step;
 	},
 
-	isAddRecoveryEmail: function() {
-		return _emails.isAddingEmail;
+	isSavingRecoveryEmail: function() {
+		return _emails.isSavingEmail;
 	},
 
 	isSendingCode: function() {
@@ -171,12 +171,22 @@ AccountRecoveryStore.dispatchToken = Dispatcher.register( function( payload ) {
 
 	switch ( action.type ) {
 		case actions.ADD_ACCOUNT_RECOVERY_EMAIL:
-			_emails.isAddingEmail = true;
+			_phone.step = 'addRecoveryEmail';
 			emitChange();
 			break;
 
-		case actions.RECEIVE_ADDED_ACCOUNT_RECOVERY_EMAIL:
-			_emails.isAddingEmail = false;
+		case actions.CANCEL_ACCOUNT_RECOVERY_EMAIL:
+			_phone.step = 'recoveryEmail';
+			emitChange();
+			break;
+
+		case actions.SAVE_ACCOUNT_RECOVERY_EMAIL:
+			_emails.isSavingEmail = true;
+			emitChange();
+			break;
+
+		case actions.RECEIVE_SAVED_ACCOUNT_RECOVERY_EMAIL:
+			_emails.isSavingEmail = false;
 			if ( action.error ) {
 				_emails.lastNotice = { type: 'error', message: action.error.message };
 				emitChange();

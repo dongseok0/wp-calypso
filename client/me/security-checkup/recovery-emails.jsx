@@ -38,25 +38,25 @@ module.exports = React.createClass( {
 			recoveryEmail: '',
 			recoveryEmails: AccountRecoveryStore.getEmails(),
 			recoveryEmailValidationError: '',
-			isAddingRecoveryEmail: false
+			recoveryEmailStep: AccountRecoveryStore.getEmailsStep()
 		};
 	},
 
 	refreshRecoveryEmails: function() {
-		if ( ! AccountRecoveryStore.isAddRecoveryEmail() ) {
-			this.setState( { isAddingRecoveryEmail: false } );
-		}
-
 		this.setState( {
-			recoveryEmails: AccountRecoveryStore.getEmails()
+			recoveryEmails: AccountRecoveryStore.getEmails(),
+			recoveryEmailStep: AccountRecoveryStore.getEmailsStep()
 		} );
 	},
 
 	addEmail: function() {
-		this.setState( { isAddingRecoveryEmail: true } );
+		SecurityCheckupActions.addEmail();
 	},
 
 	saveEmail: function() {
+		// clear validation error
+		this.setState( { recoveryEmailValidationError: '' } );
+
 		if ( this.props.primaryEmail && this.state.recoveryEmail === this.props.primaryEmail ) {
 			this.setState( { recoveryEmailValidationError: this.translate( 'You have entered your primary email address. Please enter a different email address.' ) } );
 			return;
@@ -67,7 +67,7 @@ module.exports = React.createClass( {
 			return;
 		}
 
-		SecurityCheckupActions.addEmail( this.state.recoveryEmail );
+		SecurityCheckupActions.saveEmail( this.state.recoveryEmail );
 	},
 
 	deleteEmail: function( recoveryEmail ) {
@@ -75,7 +75,10 @@ module.exports = React.createClass( {
 	},
 
 	cancelEmail: function() {
-		this.setState( { isAddingRecoveryEmail: false, recoveryEmailValidationError: '' } );
+		// clear validation error
+		this.setState( { recoveryEmailValidationError: '' } );
+
+		SecurityCheckupActions.cancelEmail();
 	},
 
 	dismissEmailsNotice: function() {
@@ -179,7 +182,7 @@ module.exports = React.createClass( {
 	},
 
 	renderRecoveryEmailActions: function() {
-		if ( this.state.isAddingRecoveryEmail ) {
+		if ( this.state.recoveryEmailStep === 'addRecoveryEmail' ) {
 			return(
 				<div className="security-checkup__recovery-email-actions">
 					<FormFieldSet>
@@ -189,7 +192,7 @@ module.exports = React.createClass( {
 					</FormFieldSet>
 					<FormButtonsBar>
 						<FormButton onClick={ this.saveEmail } >
-							{ AccountRecoveryStore.isAddRecoveryEmail() ? this.translate( 'Saving' ) : this.translate( 'Save' ) }
+							{ AccountRecoveryStore.isSavingRecoveryEmail() ? this.translate( 'Saving' ) : this.translate( 'Save' ) }
 						</FormButton>
 						<FormButton onClick={ this.cancelEmail } isPrimary={ false } >
 							{ this.translate( 'Cancel' ) }
