@@ -72,7 +72,7 @@ describe( 'SecurityCheckupActions', function() {
 		it( 'should call the WP.com REST API', function() {
 			SecurityCheckupActions.saveEmail( testConstants.DUMMY_EMAIL );
 
-			expect( undocumentedMe.prototype.addAccountRecoveryEmail ).to.have.been.calledWith( testConstants.DUMMY_EMAIL );
+			expect( undocumentedMe.prototype.saveAccountRecoveryEmail ).to.have.been.calledWith( testConstants.DUMMY_EMAIL );
 		} );
 
 		it( 'should dispatch a ServerAction', function( done ) {

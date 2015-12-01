@@ -237,7 +237,7 @@ UndocumentedMe.prototype.getAccountRecovery = function( callback ) {
 	return this.wpcom.req.get( '/me/account-recovery', { apiVersion: '1.2' }, callback );
 };
 
-UndocumentedMe.prototype.addAccountRecoveryEmail = function( email, callback ) {
+UndocumentedMe.prototype.saveAccountRecoveryEmail = function( email, callback ) {
 	return this.wpcom.req.post( '/me/account-recovery/email/new', { apiVersion: '1.2' }, { email: email }, callback );
 };
 
@@ -245,7 +245,7 @@ UndocumentedMe.prototype.deleteAccountRecoveryEmail = function( email, callback 
 	return this.wpcom.req.post( '/me/account-recovery/email/delete', { apiVersion: '1.2' }, { email: email }, callback );
 };
 
-UndocumentedMe.prototype.addAccountRecoveryPhone = function( country, phoneNumber, callback ) {
+UndocumentedMe.prototype.saveAccountRecoveryPhone = function( country, phoneNumber, callback ) {
 	return this.wpcom.req.post( '/me/account-recovery/phone/new', { apiVersion: '1.2' }, { country: country, phone_number: phoneNumber }, callback );
 };
 

@@ -57,7 +57,7 @@ module.exports = React.createClass( {
 		this.setState( { recoveryPhoneScreen: 'recoveryPhone' } );
 	},
 
-	sendCode: function() {
+	savePhone: function() {
 		var countryCode = '';
 		var phoneNumber = '';
 
@@ -70,8 +70,8 @@ module.exports = React.createClass( {
 		}
 
 		if ( ! isEmpty( this.state.phoneNumber ) ) {
-			phoneNumber = this.state.phoneNumber.countryData.code;
-			countryCode = this.state.phoneNumber.phoneNumber;
+			phoneNumber = this.state.phoneNumber.phoneNumber;
+			countryCode = this.state.phoneNumber.countryData.code;
 		}
 
 		if ( ( this.state.phoneNumber && ! this.state.phoneNumber.isValid ) || ! phoneNumber || ! countryCode ) {
@@ -173,7 +173,7 @@ module.exports = React.createClass( {
 					/>
 				<FormButtonsBar>
 					{ this.displayDeletePhoneButton() }
-					<FormButton onClick={ this.sendCode } >
+					<FormButton onClick={ this.savePhone } >
 						{ AccountRecoveryStore.isSendingCode() ? this.translate( 'Sending code' ) : this.translate( 'Send code' ) }
 					</FormButton>
 					<FormButton onClick={ this.cancel } isPrimary={ false } >

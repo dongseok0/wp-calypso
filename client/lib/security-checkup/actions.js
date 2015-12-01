@@ -29,7 +29,7 @@ var SecurityCheckupActions = {
 			email: email
 		} );
 
-		me.addAccountRecoveryEmail( email, function( error, data ) {
+		me.saveAccountRecoveryEmail( email, function( error, data ) {
 			Dispatcher.handleServerAction( {
 				type: actions.RECEIVE_SAVED_ACCOUNT_RECOVERY_EMAIL,
 				email: email,
@@ -78,7 +78,7 @@ var SecurityCheckupActions = {
 			number: number
 		} );
 
-		me.addAccountRecoveryPhone( country, number, function( error, data ) {
+		me.saveAccountRecoveryPhone( country, number, function( error, data ) {
 			Dispatcher.handleServerAction( {
 				type: actions.RECEIVE_SAVED_ACCOUNT_RECOVERY_PHONE,
 				country: country,
