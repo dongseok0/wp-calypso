@@ -171,6 +171,45 @@ module.exports = React.createClass( {
 		);
 	},
 
+	dismissPhoneNotice: function() {
+		SecurityCheckupActions.dismissPhoneNotice();
+	},
+
+	renderRecoveryPhoneNotice: function() {
+		var phoneNotice = AccountRecoveryStore.getPhoneNotice;
+
+		if ( isEmpty( phoneNotice ) ) {
+			return null;
+		}
+
+		switch ( phoneNotice.type ) {
+			case 'success':
+				return (
+					<SimpleNotice
+						status="is-success"
+						isCompact={ true }
+						onClick={ this.dismissPhoneNotice }
+						showDismiss={ true }
+						>
+						{ phoneNotice.message }
+					</SimpleNotice>
+				);
+			case 'error':
+				return (
+					<SimpleNotice
+						status="is-error"
+						isCompact={ true }
+						onClick={ this.dismissPhoneNotice }
+						showDismiss={ true }
+						>
+						{ phoneNotice.message }
+					</SimpleNotice>
+				);
+			default:
+				return null;
+		}
+	},
+
 	getRecoveryPhoneScreen: function() {
 		if ( this.state.recoveryPhone.loading ) {
 			return this.recoveryPhonePlaceHolder();
@@ -191,6 +230,7 @@ module.exports = React.createClass( {
 	render: function() {
 		return (
 			<div className="security-checkup__recovery-phone-container">
+				{ this.renderRecoveryPhoneNotice() }
 				{ this.getRecoveryPhoneScreen() }
 			</div>
 		);

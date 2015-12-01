@@ -83,7 +83,7 @@ module.exports = React.createClass( {
 		SecurityCheckupActions.dismissEmailsNotice();
 	},
 
-	renderRecoveryEmailNotice: function() {
+	renderRecoveryEmailsNotice: function() {
 		var emailsNotice = AccountRecoveryStore.getEmailsNotice();
 
 		if ( isEmpty( emailsNotice ) ) {
@@ -216,7 +216,7 @@ module.exports = React.createClass( {
 
 		return (
 			<div className="security-checkup__recovery-emails-container">
-				{ this.renderRecoveryEmailNotice() }
+				{ this.renderRecoveryEmailsNotice() }
 				{ this.renderRecoveryEmails() }
 				{ this.renderRecoveryEmailActions() }
 			</div>

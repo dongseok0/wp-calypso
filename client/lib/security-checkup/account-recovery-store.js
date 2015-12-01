@@ -1,8 +1,7 @@
 /**
  * External dependencies
  */
-var React = require( 'react' ),
-	debug = require( 'debug' )( 'calypso:lib:security-checkup:account-recovery-store' ),
+var debug = require( 'debug' )( 'calypso:lib:security-checkup:account-recovery-store' ),
 	assign = require( 'lodash/object/assign' ),
 	remove = require( 'lodash/array/remove' );
 
@@ -164,6 +163,7 @@ AccountRecoveryStore.dispatchToken = Dispatcher.register( function( payload ) {
 		case actions.RECEIVE_ADDED_ACCOUNT_RECOVERY_EMAIL:
 			_emails.isAddingEmail = false;
 			if ( action.error ) {
+				_emails.lastNotice = { type: 'error', message: action.error.message };
 				emitChange();
 				break;
 			}
@@ -177,6 +177,7 @@ AccountRecoveryStore.dispatchToken = Dispatcher.register( function( payload ) {
 
 		case actions.RECEIVE_DELETED_ACCOUNT_RECOVERY_EMAIL:
 			if ( action.error ) {
+				_emails.lastNotice = { type: 'error', message: action.error.message };
 				emitChange();
 				break;
 			}
@@ -192,6 +193,7 @@ AccountRecoveryStore.dispatchToken = Dispatcher.register( function( payload ) {
 		case actions.RECEIVE_SAVED_ACCOUNT_RECOVERY_PHONE:
 			_phone.isSavingPhone = false;
 			if ( action.error ) {
+				_phone.lastNotice = { type: 'error', message: action.error.message };
 				emitChange();
 				break;
 			}
@@ -207,7 +209,8 @@ AccountRecoveryStore.dispatchToken = Dispatcher.register( function( payload ) {
 		case actions.RECEIVE_VERIFIED_ACCOUNT_RECOVERY_PHONE:
 			_phone.isVerifyingPhone = false;
 			if ( action.error ) {
-				emitChange();
+				_phone.lastNotice = { type: 'error', message: action.error.message };
+
 				break;
 			}
 
@@ -220,6 +223,8 @@ AccountRecoveryStore.dispatchToken = Dispatcher.register( function( payload ) {
 
 		case actions.RECEIVE_DELETED_ACCOUNT_RECOVERY_PHONE:
 			if ( action.error ) {
+				_phone.lastNotice = { type: 'error', message: action.error.message };
+				emitChange();
 				break;
 			}
 
