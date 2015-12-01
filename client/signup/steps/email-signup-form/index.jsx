@@ -102,8 +102,7 @@ export default React.createClass( {
 	},
 
 	render() {
-		console.log( this.props.queryObject );
-		this.props.signupDependencies.jetpackRedirect = this.props.jetpackRedirect;
+		this.props.signupDependencies.jetpackRedirect = this.props.queryObject.jetpack_redirect;
 
 		return (
 			<StepWrapper

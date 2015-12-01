@@ -4,6 +4,7 @@
 import React from 'react';
 import page from 'page';
 import qs from 'qs';
+import isEmpty from 'lodash/lang/isEmpty';
 
 /**
  * Internal Dependencies
@@ -57,7 +58,7 @@ export default {
 	},
 
 	saveQueryObject( context, next ) {
-		if ( context.query ) {
+		if ( ! isEmpty( context.query ) ) {
 			queryObject = context.query;
 		}
 
