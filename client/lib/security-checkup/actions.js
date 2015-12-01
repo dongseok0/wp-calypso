@@ -49,14 +49,14 @@ var SecurityCheckupActions = {
 
 	addPhone: function( country, number ) {
 		Dispatcher.handleViewAction( {
-			type: actions.UPDATE_ACCOUNT_RECOVERY_PHONE,
+			type: actions.SAVE_ACCOUNT_RECOVERY_PHONE,
 			country: country,
 			number: number
 		} );
 
 		me.addAccountRecoveryPhone( country, number, function( error, data ) {
 			Dispatcher.handleServerAction( {
-				type: actions.RECEIVE_UPDATED_ACCOUNT_RECOVERY_PHONE,
+				type: actions.RECEIVE_SAVED_ACCOUNT_RECOVERY_PHONE,
 				country: country,
 				number: number,
 				data: data,
@@ -69,13 +69,13 @@ var SecurityCheckupActions = {
 
 	verifyPhone: function( code ) {
 		Dispatcher.handleViewAction( {
-			type: actions.UPDATE_ACCOUNT_RECOVERY_PHONE,
+			type: actions.VERIFY_ACCOUNT_RECOVERY_PHONE,
 			code: code
 		} );
 
 		me.updateAccountRecoveryPhone( code, function( error, data ) {
 			Dispatcher.handleServerAction( {
-				type: actions.RECEIVE_UPDATED_ACCOUNT_RECOVERY_PHONE,
+				type: actions.RECEIVE_VERIFIED_ACCOUNT_RECOVERY_PHONE,
 				code: code,
 				data: data,
 				error: error
