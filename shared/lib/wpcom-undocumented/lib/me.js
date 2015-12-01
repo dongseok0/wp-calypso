@@ -254,7 +254,7 @@ UndocumentedMe.prototype.validateAccountRecoveryPhone = function( code, callback
 };
 
 UndocumentedMe.prototype.deleteAccountRecoveryPhone = function( callback ) {
-	return this.wpcom.req.post( '/me/account-recovery/phone/validate', { apiVersion: '1.2' }, {}, callback );
+	return this.wpcom.req.post( '/me/account-recovery/phone/delete', { apiVersion: '1.2' }, {}, callback );
 };
 
 module.exports = UndocumentedMe;

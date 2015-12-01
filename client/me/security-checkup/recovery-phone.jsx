@@ -16,6 +16,7 @@ import FormPhoneInput from 'components/forms/form-phone-input';
 import FormTextInput from 'components/forms/form-text-input';
 import FormInputValidation from 'components/forms/form-input-validation';
 import countriesList from 'lib/countries-list';
+import Gridicon from 'components/gridicon';
 
 module.exports = React.createClass( {
 	displayName: 'SecurityCheckupRecoveryPhone',
@@ -36,9 +37,7 @@ module.exports = React.createClass( {
 			recoveryPhoneScreen: 'recoveryPhone',
 			recoveryPhoneValidationError: '',
 			verificationCode: '',
-			verificationCodeValidationError: '',
-			isSendingCode: false,
-			isVerifyingCode: false
+			verificationCodeValidationError: ''
 		};
 	},
 
@@ -48,8 +47,12 @@ module.exports = React.createClass( {
 		} );
 	},
 
-	edit: function() {
+	editPhone: function() {
 		this.setState( { recoveryPhoneScreen: 'editRecoveryPhone' } );
+	},
+
+	deletePhone: function() {
+		SecurityCheckupActions.deletePhone();
 	},
 
 	sendCode: function() {
@@ -116,7 +119,7 @@ module.exports = React.createClass( {
 			<div>
 				<FormSectionHeading>Recovery phone</FormSectionHeading>
 				{ this.getRecoveryPhone() }
-				<FormButton onClick={ this.edit } isPrimary={ false } >
+				<FormButton onClick={ this.editPhone } isPrimary={ false } >
 					{ this.translate( 'Edit Phone' ) }
 				</FormButton>
 			</div>
@@ -143,8 +146,12 @@ module.exports = React.createClass( {
 					onChange={ this.onChangePhoneInput }
 					/>
 				<FormButtonsBar>
+					<button onClick={ this.deletePhone }>
+						<Gridicon icon="trash" size={ 24 } />
+						<span>{ AccountRecoveryStore.isRemovingPhone() ? this.translate( 'Removing' ) : this.translate( 'Remove' ) }</span>
+					</button>
 					<FormButton onClick={ this.sendCode } >
-						{ this.state.isSendingCode ? this.translate( 'Sending code' ) : this.translate( 'Send code' ) }
+						{ AccountRecoveryStore.isSendingCode() ? this.translate( 'Sending code' ) : this.translate( 'Send code' ) }
 					</FormButton>
 					<FormButton onClick={ this.cancel } isPrimary={ false } >
 						{ this.translate( 'Cancel' ) }

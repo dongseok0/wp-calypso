@@ -18,6 +18,7 @@ var _initialized = false,
 	_loading = false,
 	_phone = {
 		isSavingPhone: false,
+		isRemovingPhone: false,
 		isVerifyingPhone: false,
 		lastNotice: false,
 		data: {}
@@ -33,12 +34,12 @@ var AccountRecoveryStore = {
 		return _emails.isAddingEmail;
 	},
 
-	isVerificationEmailSent: function() {
-		return _emails.isVerificationEmailSent;
-	},
-
 	isVerifyingPhone: function() {
 		return _phone.isVerifyingPhone;
+	},
+
+	isRemovingPhone: function() {
+		return _phone.isRemovingPhone;
 	},
 
 	getEmails: function() {
@@ -218,10 +219,12 @@ AccountRecoveryStore.dispatchToken = Dispatcher.register( function( payload ) {
 			break;
 
 		case actions.DELETE_ACCOUNT_RECOVERY_PHONE:
+			_phone.isRemovingPhone = true;
 			emitChange();
 			break;
 
 		case actions.RECEIVE_DELETED_ACCOUNT_RECOVERY_PHONE:
+			_phone.isRemovingPhone = false;
 			if ( action.error ) {
 				_phone.lastNotice = { type: 'error', message: action.error.message };
 				emitChange();
