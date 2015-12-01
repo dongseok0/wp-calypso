@@ -47,7 +47,19 @@ var SecurityCheckupActions = {
 		} );
 	},
 
-	addPhone: function( country, number ) {
+	editPhone: function() {
+		Dispatcher.handleViewAction( {
+			type: actions.EDIT_ACCOUNT_RECOVERY_PHONE
+		} );
+	},
+
+	cancelPhone: function() {
+		Dispatcher.handleViewAction( {
+			type: actions.CANCEL_ACCOUNT_RECOVERY_PHONE
+		} );
+	},
+
+	savePhone: function( country, number ) {
 		Dispatcher.handleViewAction( {
 			type: actions.SAVE_ACCOUNT_RECOVERY_PHONE,
 			country: country,

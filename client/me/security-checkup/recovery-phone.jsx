@@ -34,7 +34,7 @@ module.exports = React.createClass( {
 	getInitialState: function() {
 		return {
 			recoveryPhone: AccountRecoveryStore.getPhone(),
-			recoveryPhoneScreen: 'recoveryPhone',
+			recoveryPhoneStep: AccountRecoveryStore.getPhoneStep(),
 			recoveryPhoneValidationError: '',
 			verificationCode: '',
 			verificationCodeValidationError: ''
@@ -43,16 +43,18 @@ module.exports = React.createClass( {
 
 	refreshRecoveryPhone: function() {
 		this.setState( {
-			recoveryPhone: AccountRecoveryStore.getPhone()
+			recoveryPhone: AccountRecoveryStore.getPhone(),
+			recoveryPhoneStep: AccountRecoveryStore.getPhoneStep()
 		} );
 	},
 
 	editPhone: function() {
-		this.setState( { recoveryPhoneScreen: 'editRecoveryPhone' } );
+		SecurityCheckupActions.editPhone();
 	},
 
 	deletePhone: function() {
 		SecurityCheckupActions.deletePhone();
+		this.setState( { recoveryPhoneScreen: 'recoveryPhone' } );
 	},
 
 	sendCode: function() {
@@ -77,10 +79,13 @@ module.exports = React.createClass( {
 			return;
 		}
 
-		SecurityCheckupActions.addPhone( countryCode, phoneNumber );
+		SecurityCheckupActions.savePhone( countryCode, phoneNumber );
 	},
 
 	verifyCode: function() {
+		// clear validation error
+		this.setState( { verificationCodeValidationError: '' } );
+
 		if ( this.state.verificationCode.length !== 7 ) { // @TODO should 7 be a constant declared?
 			this.setState( { verificationCodeValidationError: this.translate( 'Please enter a valid code.' ) } );
 			return;
@@ -90,7 +95,11 @@ module.exports = React.createClass( {
 	},
 
 	cancel: function() {
-		this.setState( { recoveryPhoneScreen: 'recoveryPhone', recoveryPhoneValidationError: '' } );
+		// clear validation errors
+		this.setState( { recoveryPhoneValidationError: '' } );
+		this.setState( { verificationCodeValidationError: '' } );
+
+		SecurityCheckupActions.cancelPhone();
 	},
 
 	onChangePhoneInput: function( phoneNumber ) {
@@ -236,12 +245,12 @@ module.exports = React.createClass( {
 			return this.recoveryPhonePlaceHolder();
 		}
 
-		switch ( this.state.recoveryPhoneScreen ) {
+		switch ( this.state.recoveryPhoneStep ) {
 			case 'recoveryPhone':
 				return this.recoveryPhone();
 			case 'editRecoveryPhone':
 				return this.editRecoveryPhone();
-			case 'verfiyRecoveryPhone':
+			case 'verifyRecoveryPhone':
 				return this.verfiyRecoveryPhone();
 			default:
 				return this.recoveryPhone();

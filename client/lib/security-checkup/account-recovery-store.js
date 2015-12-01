@@ -17,6 +17,7 @@ var Dispatcher = require( 'dispatcher' ),
 var _initialized = false,
 	_loading = false,
 	_phone = {
+		step: 'recoveryPhone',
 		isSendingCode: false,
 		isRemovingPhone: false,
 		isVerifyingPhone: false,
@@ -24,12 +25,21 @@ var _initialized = false,
 		data: {}
 	},
 	_emails = {
+		step: 'recoveryEmail',
 		isAddingEmail: false,
 		lastNotice: false,
 		data: {}
 	};
 
 var AccountRecoveryStore = {
+	getPhoneStep: function() {
+		return _phone.step;
+	},
+
+	getEmailStep: function() {
+		return _emails.step;
+	},
+
 	isAddRecoveryEmail: function() {
 		return _emails.isAddingEmail;
 	},
@@ -190,6 +200,17 @@ AccountRecoveryStore.dispatchToken = Dispatcher.register( function( payload ) {
 			removeEmail( action.email );
 			emitChange();
 			break;
+
+		case actions.EDIT_ACCOUNT_RECOVERY_PHONE:
+			_phone.step = 'editRecoveryPhone';
+			emitChange();
+			break;
+
+		case actions.CANCEL_ACCOUNT_RECOVERY_PHONE:
+			_phone.step = 'recoveryPhone';
+			emitChange();
+			break;
+
 		case actions.SAVE_ACCOUNT_RECOVERY_PHONE:
 			_phone.isSendingCode = true;
 			emitChange();
@@ -203,6 +224,7 @@ AccountRecoveryStore.dispatchToken = Dispatcher.register( function( payload ) {
 				break;
 			}
 
+			_phone.step = 'verifyRecoveryPhone';
 			emitChange();
 			break;
 
@@ -219,6 +241,8 @@ AccountRecoveryStore.dispatchToken = Dispatcher.register( function( payload ) {
 				break;
 			}
 
+			// @TODO update phone in the current store
+			_phone.step = 'recoveryPhone';
 			emitChange();
 			break;
 
