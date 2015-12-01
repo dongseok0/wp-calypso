@@ -56,17 +56,25 @@ module.exports = React.createClass( {
 	},
 
 	sendCode: function() {
-		var countryCode = this.state.recoveryPhone.data.number;
-		var phoneNumber = this.state.recoveryPhone.data.countryCode;
+		var countryCode = '';
+		var phoneNumber = '';
 
-		if ( this.state.phoneNumber && ! this.state.phoneNumber.isValid ) {
-			this.setState( { recoveryPhoneValidationError: this.translate( 'Please enter a valid phone number.' ) } );
-			return;
+		// clear validation error
+		this.setState( { recoveryPhoneValidationError: '' } );
+
+		if ( this.state.recoveryPhone.data.number && this.state.recoveryPhone.data.countryCode ) {
+			phoneNumber = this.state.recoveryPhone.data.number;
+			countryCode = this.state.recoveryPhone.data.countryCode;
 		}
 
 		if ( ! isEmpty( this.state.phoneNumber ) ) {
 			phoneNumber = this.state.phoneNumber.countryData.code;
 			countryCode = this.state.phoneNumber.phoneNumber;
+		}
+
+		if ( ( this.state.phoneNumber && ! this.state.phoneNumber.isValid ) || ! phoneNumber || ! countryCode ) {
+			this.setState( { recoveryPhoneValidationError: this.translate( 'Please enter a valid phone number.' ) } );
+			return;
 		}
 
 		SecurityCheckupActions.addPhone( countryCode, phoneNumber );
@@ -133,7 +141,7 @@ module.exports = React.createClass( {
 	},
 
 	displayDeletePhoneButton: function() {
-		if ( isEmpty( this.state.recoveryPhone.data ) ) {
+		if ( isEmpty( this.state.recoveryPhone.data.number ) ) {
 			return null;
 		}
 
