@@ -599,7 +599,7 @@ const ManagePurchase = React.createClass( {
 
 	render() {
 		if ( this.props.selectedPurchase.hasLoadedFromServer && ! getPurchase( this.props ) ) {
-			// TODO: redirect to purchases list
+			// TODO: redirect to purchases list!
 			return null;
 		}
 
