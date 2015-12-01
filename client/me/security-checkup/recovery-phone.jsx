@@ -155,6 +155,7 @@ module.exports = React.createClass( {
 					onChange={ this.onChangePhoneInput }
 					/>
 				<FormButtonsBar>
+					{ this.displayDeletePhoneButton() }
 					<FormButton onClick={ this.sendCode } >
 						{ AccountRecoveryStore.isSendingCode() ? this.translate( 'Sending code' ) : this.translate( 'Send code' ) }
 					</FormButton>
