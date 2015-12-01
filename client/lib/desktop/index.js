@@ -15,7 +15,8 @@ var siteStatsStickyTabStore = require( 'lib/site-stats-sticky-tab/store' ),
 	store = require( 'store' ),
 	oAuthToken = require( 'lib/oauth-token' ),
 	userUtilities = require( 'lib/user/utils' ),
-	location = require( './page-notifier' );
+	location = require( './page-notifier' ),
+	spellchecker = require( './spellchecker' );
 
 /**
  * Module variables
@@ -147,5 +148,7 @@ var Desktop = {
 		ipc.send( 'print', title, html );
 	}
 };
+
+spellchecker();
 
 module.exports = Desktop;
