@@ -54,7 +54,6 @@ module.exports = React.createClass( {
 
 	deletePhone: function() {
 		SecurityCheckupActions.deletePhone();
-		this.setState( { recoveryPhoneScreen: 'recoveryPhone' } );
 	},
 
 	savePhone: function() {
@@ -65,13 +64,13 @@ module.exports = React.createClass( {
 		this.setState( { recoveryPhoneValidationError: '' } );
 
 		if ( this.state.recoveryPhone.data.number && this.state.recoveryPhone.data.countryCode ) {
-			phoneNumber = this.state.recoveryPhone.data.number;
 			countryCode = this.state.recoveryPhone.data.countryCode;
+			phoneNumber = this.state.recoveryPhone.data.number;
 		}
 
 		if ( ! isEmpty( this.state.phoneNumber ) ) {
-			phoneNumber = this.state.phoneNumber.phoneNumber;
 			countryCode = this.state.phoneNumber.countryData.code;
+			phoneNumber = this.state.phoneNumber.phoneNumber;
 		}
 
 		if ( ( this.state.phoneNumber && ! this.state.phoneNumber.isValid ) || ! phoneNumber || ! countryCode ) {
@@ -83,6 +82,8 @@ module.exports = React.createClass( {
 	},
 
 	verifyCode: function() {
+		var phoneData = this.state.recoveryPhone;
+
 		// clear validation error
 		this.setState( { verificationCodeValidationError: '' } );
 
@@ -91,7 +92,16 @@ module.exports = React.createClass( {
 			return;
 		}
 
-		SecurityCheckupActions.verifyPhone( this.state.verificationCode );
+		if ( ! isEmpty( this.state.phoneNumber ) ) {
+			phoneData = {
+				countryCode: this.state.phoneNumber.countryData.code,
+				countryNumericCode: this.state.phoneNumber.countryData.numeric_code,
+				number: this.state.phoneNumber.phoneNumber,
+				numberFull: this.state.phoneNumber.phoneNumberFull
+			};
+		}
+
+		SecurityCheckupActions.verifyPhone( this.state.verificationCode, phoneData );
 	},
 
 	cancel: function() {

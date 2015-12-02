@@ -94,14 +94,13 @@ var SecurityCheckupActions = {
 	verifyPhone: function( code ) {
 		Dispatcher.handleViewAction( {
 			type: actions.VERIFY_ACCOUNT_RECOVERY_PHONE,
-			code: code
 		} );
 
-		me.verifyAccountRecoveryPhone( code, function( error, data ) {
+		me.verifyAccountRecoveryPhone( code, phoneData, function( error, data ) {
 			Dispatcher.handleServerAction( {
 				type: actions.RECEIVE_VERIFIED_ACCOUNT_RECOVERY_PHONE,
-				code: code,
 				data: data,
+				phoneData: phoneData,
 				error: error
 			} );
 

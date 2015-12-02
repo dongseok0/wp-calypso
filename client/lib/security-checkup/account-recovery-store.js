@@ -253,7 +253,7 @@ AccountRecoveryStore.dispatchToken = Dispatcher.register( function( payload ) {
 				break;
 			}
 
-			// @TODO update phone in the current store
+			_phone.data = action.phoneData;
 			_phone.step = 'recoveryPhone';
 			emitChange();
 			break;
@@ -271,6 +271,7 @@ AccountRecoveryStore.dispatchToken = Dispatcher.register( function( payload ) {
 				break;
 			}
 
+			_phone.step = 'recoveryPhone';
 			emitChange();
 			break;
 
