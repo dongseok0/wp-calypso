@@ -91,12 +91,12 @@ var SecurityCheckupActions = {
 		} );
 	},
 
-	verifyPhone: function( code ) {
+	verifyPhone: function( code, phoneData ) {
 		Dispatcher.handleViewAction( {
-			type: actions.VERIFY_ACCOUNT_RECOVERY_PHONE,
+			type: actions.VERIFY_ACCOUNT_RECOVERY_PHONE
 		} );
 
-		me.verifyAccountRecoveryPhone( code, phoneData, function( error, data ) {
+		me.verifyAccountRecoveryPhone( code, function( error, data ) {
 			Dispatcher.handleServerAction( {
 				type: actions.RECEIVE_VERIFIED_ACCOUNT_RECOVERY_PHONE,
 				data: data,

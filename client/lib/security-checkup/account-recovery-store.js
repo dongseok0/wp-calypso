@@ -249,7 +249,7 @@ AccountRecoveryStore.dispatchToken = Dispatcher.register( function( payload ) {
 			_phone.isVerifyingCode = false;
 			if ( action.error ) {
 				_phone.lastNotice = { type: 'error', message: action.error.message };
-
+				emitChange();
 				break;
 			}
 
@@ -272,6 +272,7 @@ AccountRecoveryStore.dispatchToken = Dispatcher.register( function( payload ) {
 			}
 
 			_phone.step = 'recoveryPhone';
+			_phone.data = {};
 			emitChange();
 			break;
 
