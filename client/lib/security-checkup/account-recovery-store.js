@@ -192,6 +192,8 @@ AccountRecoveryStore.dispatchToken = Dispatcher.register( function( payload ) {
 				emitChange();
 				break;
 			}
+
+			_emails.step = 'recoveryEmail';
 			_emails.lastNotice = { type: 'success', message: i18n.translate( 'We have sent you verification email. please verify.' ) };
 			emitChange();
 			break;

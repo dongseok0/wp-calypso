@@ -50,6 +50,9 @@ module.exports = React.createClass( {
 	},
 
 	addEmail: function() {
+		// clear recoveryEmail
+		this.setState( { recoveryEmail: '' } );
+
 		SecurityCheckupActions.addEmail();
 	},
 
