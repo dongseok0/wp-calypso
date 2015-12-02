@@ -97,7 +97,7 @@ var SecurityCheckupActions = {
 			code: code
 		} );
 
-		me.updateAccountRecoveryPhone( code, function( error, data ) {
+		me.verifyAccountRecoveryPhone( code, function( error, data ) {
 			Dispatcher.handleServerAction( {
 				type: actions.RECEIVE_VERIFIED_ACCOUNT_RECOVERY_PHONE,
 				code: code,

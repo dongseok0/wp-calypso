@@ -249,7 +249,7 @@ UndocumentedMe.prototype.saveAccountRecoveryPhone = function( country, phoneNumb
 	return this.wpcom.req.post( '/me/account-recovery/phone/new', { apiVersion: '1.2' }, { country: country, phone_number: phoneNumber }, callback );
 };
 
-UndocumentedMe.prototype.validateAccountRecoveryPhone = function( code, callback ) {
+UndocumentedMe.prototype.verifyAccountRecoveryPhone = function( code, callback ) {
 	return this.wpcom.req.post( '/me/account-recovery/phone/validate', { apiVersion: '1.2' }, { code: code }, callback );
 };
 
